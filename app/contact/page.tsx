@@ -213,7 +213,7 @@ export default function ContactPage() {
                 <Button variant="secondary">{copy.contact.book.btnJoin}</Button>
               </Link>
             ) : (
-              <Button variant="secondary" disabled>Coming Soon</Button>
+              <Button variant="secondary" disabled>{copy.contact.book.comingSoon}</Button>
             )}
         </div>
       </FadeIn>
