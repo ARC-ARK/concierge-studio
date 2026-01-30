@@ -58,7 +58,6 @@ export const copy = {
       sendingBtn: "Sending...",
       ndaPrefix: "NDA available upon request.",
       confidential: "100% Confidential.",
-      // [Phase 1: New] Centralized Form Options
       options: {
         category: [
           { value: "Web", label: "Web Dev" },
