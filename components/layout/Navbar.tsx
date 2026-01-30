@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { navigation, siteConfig } from "@/lib/content";
+import { copy } from "@/lib/copy";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Primitives";
@@ -37,7 +38,7 @@ export default function Navbar() {
         <div className="hidden md:flex items-center">
             <Link href="/contact">
               <Button variant="primary" className="h-9 px-4 text-xs">
-                  Start Request
+                  {copy.nav.startRequestBtn}
               </Button>
             </Link>
         </div>
@@ -62,7 +63,7 @@ export default function Navbar() {
             </Link>
           ))}
            <Link href="/contact" onClick={() => setIsOpen(false)}>
-              <Button className="w-full mt-4">Start Request</Button>
+              <Button className="w-full mt-4">{copy.nav.startRequestBtn}</Button>
            </Link>
         </div>
       )}
