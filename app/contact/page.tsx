@@ -22,6 +22,7 @@ type FormData = z.infer<typeof formSchema>;
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(formSchema)
@@ -29,14 +30,24 @@ export default function ContactPage() {
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
+    setSubmitError(null);
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(data),
       });
-      if (response.ok) setIsSuccess(true);
+
+      if (response.ok) {
+        setIsSuccess(true);
+      } else {
+        setSubmitError("Something went wrong. Please try again.");
+      }
     } catch (error) {
       console.error(error);
+      setSubmitError("Network error. Please try again later.");
     } finally {
       setIsSubmitting(false);
     }
@@ -45,11 +56,13 @@ export default function ContactPage() {
   if (isSuccess) {
     return (
       <div className="min-h-screen flex items-center justify-center container mx-auto px-6">
-        <Card className="max-w-md w-full text-center py-12">
-          <h2 className="text-2xl font-bold text-white mb-4">Request Received</h2>
-          <p className="text-gray-400 mb-8">We've got your brief. Expect a response from our lead producer within 24 hours.</p>
-          <Button onClick={() => setIsSuccess(false)} variant="outline">Send another</Button>
-        </Card>
+        <FadeIn>
+          <Card className="max-w-md w-full text-center py-12">
+            <h2 className="text-2xl font-bold text-white mb-4">Request Received</h2>
+            <p className="text-gray-400 mb-8">We've got your brief. Expect a response from our lead producer within 24 hours.</p>
+            <Button onClick={() => setIsSuccess(false)} variant="outline">Send another</Button>
+          </Card>
+        </FadeIn>
       </div>
     );
   }
@@ -125,6 +138,12 @@ export default function ContactPage() {
               {team.map(t => <option key={t.name} value={t.name}>{t.name} - {t.role}</option>)}
             </select>
           </div>
+
+          {submitError && (
+            <div className="p-3 bg-red-500/10 border border-red-500/20 rounded text-red-400 text-sm text-center">
+              {submitError}
+            </div>
+          )}
 
           <div className="pt-4">
              <Button disabled={isSubmitting} className="w-full h-14 text-base">
