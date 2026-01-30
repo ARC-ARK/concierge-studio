@@ -1,10 +1,11 @@
 import { FadeIn } from "@/components/ui/FadeIn";
+import { copy } from "@/lib/copy";
 
 export default function TermsPage() {
   return (
     <div className="container mx-auto px-6 py-20 max-w-4xl">
       <FadeIn>
-        <h1 className="text-3xl font-bold text-white mb-8">Terms of Service</h1>
+        <h1 className="text-3xl font-bold text-white mb-8">{copy.policies.termsTitle}</h1>
         <div className="prose prose-invert prose-lg text-gray-400">
           <p>Effective Date: January 1, 2026</p>
           <p>By accessing or using the Concierge Studio website and services, you agree to be bound by these Terms.</p>
