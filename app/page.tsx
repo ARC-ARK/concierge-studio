@@ -1,17 +1,17 @@
 import Hero from "@/components/sections/Hero";
 import HomeServices from "@/components/sections/HomeServices";
 import FAQ from "@/components/sections/FAQ";
-import { steps, cases, team } from "@/lib/content";
+import TeamTeaser from "@/components/sections/TeamTeaser"; // 新增引用
+import { steps, cases } from "@/lib/content";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Card, Button, Badge } from "@/components/ui/Primitives";
 import Link from "next/link";
-import { ArrowRight, Star } from "lucide-react";
+// 移除了 ArrowRight, Star
 
 export default function Home() {
   return (
     <div className="flex flex-col gap-0">
       <Hero />
-      
       <HomeServices />
 
       {/* How it works */}
@@ -32,7 +32,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Proof / Case Study Highlight */}
+      {/* Proof */}
       <section className="py-24">
         <div className="container mx-auto px-6">
           <FadeIn>
@@ -40,7 +40,7 @@ export default function Home() {
               <h2 className="text-3xl font-bold text-white">Recent Proof</h2>
               <Link href="/proof" className="text-sm text-violet-400 hover:text-white">View all cases &rarr;</Link>
             </div>
-            {/* Main Featured Case */}
+            {/* Main Case */}
             <div className="grid lg:grid-cols-2 gap-12 bg-gradient-to-br from-violet-900/10 to-transparent p-8 md:p-12 rounded-3xl border border-white/10 mb-8">
               <div>
                 <Badge className="bg-cyan-500/10 text-cyan-400 border-cyan-500/20 mb-6">FEATURED CASE</Badge>
@@ -57,7 +57,6 @@ export default function Home() {
                 </Link>
               </div>
               <div className="relative h-64 lg:h-auto bg-black/40 rounded-xl overflow-hidden border border-white/5 flex items-center justify-center">
-                 {/* Abstract representation of work */}
                  <div className="text-gray-600 font-mono text-sm">[Client Project Preview]</div>
               </div>
             </div>
@@ -75,37 +74,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Team Teaser */}
-      <section className="py-24 bg-surface/30">
-        <div className="container mx-auto px-6 text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-4">The Gold Team</h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">Meet the senior specialists who lead every delivery. No juniors, no outsourcing.</p>
-        </div>
-        <div className="container mx-auto px-6 overflow-hidden">
-             <div className="flex justify-center gap-6 flex-wrap">
-                {team.slice(0,3).map((member, i) => (
-                  <Card key={i} className="w-full md:w-80 text-left">
-                     <div className="flex items-center gap-4 mb-4">
-                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center text-white font-bold text-lg">
-                           {member.name.charAt(0)}
-                        </div>
-                        <div>
-                           <div className="text-white font-bold">{member.name}</div>
-                           <div className="text-xs text-violet-400">{member.role}</div>
-                        </div>
-                     </div>
-                     <p className="text-sm text-gray-400 italic mb-4">"{member.style}"</p>
-                     <div className="flex gap-2 flex-wrap">
-                        {member.tags.map(t => <Badge key={t} className="bg-black/40 text-gray-400 border-none">{t}</Badge>)}
-                     </div>
-                  </Card>
-                ))}
-             </div>
-             <div className="text-center mt-10">
-                <Link href="/gold-team"><Button variant="secondary">View Full Roster</Button></Link>
-             </div>
-        </div>
-      </section>
+      {/* Replaced with Component */}
+      <TeamTeaser />
 
       <FAQ />
 
