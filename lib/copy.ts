@@ -7,7 +7,7 @@ export const copy = {
     featuredCase: "FEATURED CASE",
     impact: "Impact",
     clientPreview: "[Client Project Preview]",
-    loadingCases: "Case studies loading...", // [New]
+    loadingCases: "Case studies loading...",
   },
   nav: {
     startRequestBtn: "Start Request",
@@ -58,14 +58,13 @@ export const copy = {
       sendingBtn: "Sending...",
       ndaPrefix: "NDA available upon request.",
       confidential: "100% Confidential.",
-      // [New] Validation Messages
       validation: {
         category: "Please select a category",
         goal: "Please define a goal",
         timeline: "Timeline is required",
         budget: "Budget is required",
         emailInvalid: "Invalid email address",
-        contactRequired: "Contact method required",
+        contactRequired: "Contact method required (min 2 chars)",
         detailsMin: "Please provide more details (at least 10 chars)",
       },
       errors: {
@@ -130,4 +129,4 @@ export const copy = {
       btn: "Request NDA via Contact"
     }
   }
-};
+} as const;
