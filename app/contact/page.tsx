@@ -21,7 +21,7 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-// 子組件：處理表單邏輯與 URL 參數
+// 將表單邏輯拆分為子組件，以便在 Suspense 中使用 hooks
 function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -34,9 +34,10 @@ function ContactForm() {
     resolver: zodResolver(formSchema)
   });
 
-  // 自動預填 specialist
+  // 自動預填邏輯
   useEffect(() => {
     if (prefillSpecialist) {
+      // 簡單驗證該成員是否存在，避免亂填
       const exists = team.some(t => t.name === prefillSpecialist);
       if (exists) {
         setValue("specialist", prefillSpecialist);
@@ -47,34 +48,32 @@ function ContactForm() {
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     setSubmitError(null);
-    
     try {
-      // --- GitHub Pages 模式 (無後端 API) ---
-      
-      // OPTION A: Formspree (正式上線推薦)
-      // 1. 去 formspree.io 申請一個表單 URL
-      // 2. 取消下方註解，填入你的 URL
-      /*
-      const response = await fetch("https://formspree.io/f/你的FormID", {
+      // --- OPTION 1: Formspree (已啟用) ---
+      // ✅ 使用你的 Formspree 端點
+      const response = await fetch("https://formspree.io/f/xwvbwevn", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
+
       if (response.ok) {
         setIsSuccess(true);
       } else {
-        setSubmitError("Failed to send. Please try again.");
+        // 如果 Formspree 回傳非 200 OK 的狀態
+        setSubmitError("Failed to send request. Please try again later.");
       }
-      */
 
-      // OPTION B: 純前端模擬 (目前預設，方便測試 UI)
-      await new Promise(resolve => setTimeout(resolve, 1500)); // 假裝讀取中
-      console.log("Form Data Submitted (Simulation):", data);
+      // --- OPTION 2: 純靜態模擬 (已停用) ---
+      /*
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      console.log("Form Data Submitted:", data);
       setIsSuccess(true);
+      */
 
     } catch (error) {
       console.error(error);
-      setSubmitError("Network error. Please try again later.");
+      setSubmitError("Network error. Please check your connection.");
     } finally {
       setIsSubmitting(false);
     }
@@ -82,7 +81,7 @@ function ContactForm() {
 
   if (isSuccess) {
     return (
-      <div className="min-h-[400px] flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <Card className="max-w-md w-full text-center py-12">
           <h2 className="text-2xl font-bold text-white mb-4">Request Received</h2>
           <p className="text-gray-400 mb-8">We've got your brief. Expect a response from our lead producer within 24 hours.</p>
@@ -175,7 +174,7 @@ function ContactForm() {
   );
 }
 
-// 主頁面：提供 Suspense Boundary 避免靜態構建錯誤
+// 主頁面組件：提供 Suspense Boundary
 export default function ContactPage() {
   return (
     <div className="container mx-auto px-6 py-20 max-w-2xl">
@@ -185,7 +184,7 @@ export default function ContactPage() {
           <p className="text-gray-400">Tell us what you need. We'll handle the rest.</p>
         </div>
         
-        <Suspense fallback={<div className="text-gray-500 py-10 text-center">Loading request form...</div>}>
+        <Suspense fallback={<div className="text-gray-500">Loading form...</div>}>
           <ContactForm />
         </Suspense>
 
