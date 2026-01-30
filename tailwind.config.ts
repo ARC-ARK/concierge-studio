@@ -9,10 +9,10 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#070A12", // Ultra dark blue/black
+        background: "#070A12",
         surface: "#0B1020",
-        primary: "#8b5cf6", // Violet
-        secondary: "#06b6d4", // Cyan
+        primary: "#8b5cf6",
+        secondary: "#06b6d4",
         border: "rgba(255,255,255,0.1)",
       },
       backgroundImage: {
@@ -30,6 +30,8 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 };
 export default config;
