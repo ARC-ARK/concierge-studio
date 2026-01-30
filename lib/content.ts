@@ -11,7 +11,7 @@ export const navigation = [
   { name: "Proof", href: "/proof" },
   { name: "Gold Team", href: "/gold-team" },
   { name: "Insights", href: "/insights" },
-];
+] as const;
 
 export const services = [
   {
@@ -153,14 +153,14 @@ export const faqs = [
   { q: "Do you handle urgent requests?", a: "Yes, subject to a rush fee." }
 ];
 
-// [Phase 2: New] Content Block Type Definition
+// 定義內容區塊的型別
 export type ContentBlock = 
   | { type: "p"; text: string }
   | { type: "h3"; text: string }
   | { type: "quote"; text: string }
   | { type: "ul"; items: string[] };
 
-// [Phase 2: Refactor] Structured Insights Data with Strict Typing
+// 使用 satisfies 強制執行嚴格的資料結構檢查
 export const insights = [
   {
     slug: "async-delivery",
