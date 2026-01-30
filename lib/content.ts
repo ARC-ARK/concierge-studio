@@ -11,7 +11,7 @@ export const siteConfig = {
   email: "hello@concierge.studio", // 若你有正式信箱可改
   // 可選：用於 SEO / 社群
   tagline: "你說要什麼，我幫你做出來。",
-  positioning: "AI 代辦服務（幫不懂 AI 的人，把需求變成成果）",
+  positioning: "代辦服務（把需求變成成果）",
   boundaries: {
     do: "只做數位交付（文件、圖片、影片、簡報、表格、內容、企劃、代辦流程）",
     dont: "不做需要你到現場的事（線下跑腿/代排隊/現場協助等）",
@@ -33,7 +33,7 @@ export const navigation = [
 
 export const companyProfile = {
   nameZh: "小記萬事屋",
-  positioning: "AI 代辦服務（幫不懂 AI 的人，把需求變成成果）",
+  positioning: "代辦服務（把需求變成成果）",
   sloganZh: "你說要什麼，我幫你做出來。",
   coreValueProps: ["速度快", "溝通簡單", "交付清楚"],
   serviceBoundary: {
@@ -62,15 +62,15 @@ export const icp = {
     { name: "新創/迷你企業", examples: ["宣傳", "產品介紹", "客服話術", "簡單網站/頁面"] },
   ],
   keyTruths: [
-    "客戶不熟悉 AI",
-    "客戶不需要知道我們用 AI 做事",
+    "客戶不熟悉",
+    "客戶不需要知道我們做事",
     "他們只想：省麻煩、有人幫我做、結果能用就好",
   ],
-  externalStrategy: "對外說「我們有一套快速製作流程」，不要強調「AI」。",
+  externalStrategy: "對外說「我們有一套快速製作流程」。",
 } as const;
 
 // ===============================
-// 3) Brand Voice & External Messaging (No-AI version)
+// 3) Brand Voice & External Messaging
 // ===============================
 
 export const brandMessaging = {
@@ -81,11 +81,11 @@ export const brandMessaging = {
   ],
   packaging: {
     external: "小記萬事屋｜金牌團隊（Team-based 呈現）",
-    internal: "你（接案/控品質） + AI（大量產出/格式化/模板化/加速）",
+    internal: "（接案/控品質） + （大量產出/格式化/模板化/加速）",
   },
   tone: {
     keywords: ["直接", "省事", "可驗收", "不繞彎", "友善"],
-    avoid: ["技術術語堆砌", "一直提 AI", "過度承諾線下事項"],
+    avoid: ["技術術語堆砌", "過度承諾線下事項"],
   },
 } as const;
 
