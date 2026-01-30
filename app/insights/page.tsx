@@ -1,5 +1,6 @@
 import { insights } from "@/lib/content";
-import { Card, Badge } from "@/components/ui/Primitives";
+import { copy } from "@/lib/copy";
+import { Card } from "@/components/ui/Primitives";
 import { FadeIn } from "@/components/ui/FadeIn";
 import Link from "next/link";
 
@@ -7,9 +8,9 @@ export default function InsightsPage() {
   return (
     <div className="container mx-auto px-6 py-20">
       <FadeIn>
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">Insights</h1>
+        <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">{copy.insightsPage.title}</h1>
         <p className="text-xl text-gray-400 max-w-2xl mb-16">
-          Notes on strategy, design, and operations from the field.
+          {copy.insightsPage.sub}
         </p>
 
         <div className="grid md:grid-cols-2 gap-8">
