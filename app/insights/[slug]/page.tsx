@@ -6,6 +6,35 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
 
+// [NEW] 輕量級區塊渲染器
+function InsightBlocks({ blocks }: { blocks: any[] }) {
+  return (
+    <div className="prose prose-invert prose-lg max-w-none">
+      {blocks.map((b, i) => {
+        switch (b.type) {
+          case "h3":
+            return <h3 key={i}>{b.text}</h3>;
+          case "quote":
+            return (
+              <div key={i} className="bg-surface p-6 rounded-lg border-l-4 border-violet-500 my-8">
+                <p className="m-0 italic text-gray-300">{b.text}</p>
+              </div>
+            );
+          case "ul":
+            return (
+              <ul key={i} className="list-disc pl-5 space-y-2 text-gray-400">
+                {b.items.map((it: string) => <li key={it}>{it}</li>)}
+              </ul>
+            );
+          case "p":
+          default:
+            return <p key={i}>{b.text}</p>;
+        }
+      })}
+    </div>
+  );
+}
+
 export function generateStaticParams() {
   return insights.map((post) => ({
     slug: post.slug,
@@ -33,25 +62,8 @@ export default function InsightPost({ params }: { params: { slug: string } }) {
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">{post.title}</h1>
         <div className="text-gray-500 text-sm mb-12 border-b border-white/10 pb-8">{post.date} · {copy.insightsPage.readTimeLabel}</div>
 
-        <div className="prose prose-invert prose-lg max-w-none">
-           <p className="text-xl text-gray-300 leading-relaxed mb-8 font-light">{post.summary}</p>
-           
-           <p>This is a placeholder for the full article content. In a real implementation, this would be rendered from Markdown or a CMS.</p>
-           
-           <h3>Why this matters now</h3>
-           <p>Digital operations are shifting from bloated agency retainers to surgical, on-demand execution. Teams that adapt to async workflows ship 40% faster.</p>
-           
-           <div className="bg-surface p-6 rounded-lg border-l-4 border-violet-500 my-8">
-              <p className="m-0 italic text-gray-300">"The best code is the code you don't write. The best meeting is the one you don't have."</p>
-           </div>
-           
-           <h3>The Execution Strategy</h3>
-           <ul className="list-disc pl-5 space-y-2 text-gray-400">
-              <li>Scope ruthlessly.</li>
-              <li>Deliver early drafts.</li>
-              <li>Iterate based on data, not opinions.</li>
-           </ul>
-        </div>
+        {/* [Fixed] 使用渲染器代替硬編碼內容 */}
+        <InsightBlocks blocks={post.blocks} />
         
         <div className="mt-20 pt-10 border-t border-white/10">
            <h4 className="text-white font-bold mb-4">{copy.insightsPage.ctaTitle}</h4>
