@@ -3,7 +3,7 @@ import HomeServices from "@/components/sections/HomeServices";
 import FAQ from "@/components/sections/FAQ";
 import TeamTeaser from "@/components/sections/TeamTeaser";
 import { steps, cases } from "@/lib/content";
-import { copy } from "@/lib/copy";
+import { copy } from "@/lib/copy"; // 確保有引入 copy
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Card, Button, Badge } from "@/components/ui/Primitives";
 import Link from "next/link";
@@ -14,11 +14,9 @@ export default function Home() {
 
   return (
     <div className="flex flex-col gap-0">
+      {/* ... (前面的 Hero, Services, How it works 區塊保持不變) ... */}
       <Hero />
-      
       <HomeServices />
-
-      {/* How it works */}
       <section className="py-24 bg-background border-y border-white/5">
         <div className="container mx-auto px-6">
           <FadeIn>
@@ -35,6 +33,7 @@ export default function Home() {
           </FadeIn>
         </div>
       </section>
+
 
       {/* Proof / Case Study Highlight */}
       <section className="py-24">
@@ -67,7 +66,8 @@ export default function Home() {
                 </div>
               </div>
             ) : (
-              <div className="text-center py-12 text-gray-500">Case studies loading...</div>
+              // [Fixed] 使用集中管理的文案
+              <div className="text-center py-12 text-gray-500">{copy.common.loadingCases}</div>
             )}
 
             {/* Mini Cards */}
@@ -84,11 +84,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ... (後面的 TeamTeaser, FAQ, Final CTA 保持不變) ... */}
       <TeamTeaser />
-
       <FAQ />
-
-      {/* Final CTA */}
       <section className="py-32 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-background to-violet-900/10 pointer-events-none" />
         <div className="container mx-auto px-6 relative z-10 text-center">
