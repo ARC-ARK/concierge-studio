@@ -7,10 +7,10 @@ import { siteConfig } from "@/lib/content";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// ⚠️ TODO: 請務必修改這裡！
-// 格式: https://<你的GitHub帳號>.github.io/<Repo名稱>
-// 例如: https://johndoe.github.io/concierge-studio
-const PRODUCTION_URL = "https://arc-ark.github.io/concierge-studio/";
+// ⚠️ PRODUCTION_URL 設定
+// 請將此處改為你實際的 GitHub Pages 網址 (務必包含最後的斜線)
+// 例如: https://arc-ark.github.io/concierge-studio/
+const PRODUCTION_URL = "https://your-username.github.io/your-repo-name/";
 
 export const metadata: Metadata = {
   title: {
@@ -18,23 +18,24 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  // 關鍵修正：設定正確的 Base URL，讓 OG Image 與 Canonical URL 能夠正確解析
+  // 設定 Base URL，讓相對路徑能正確解析
   metadataBase: new URL(PRODUCTION_URL), 
   openGraph: {
     type: "website",
     locale: "en_US",
     url: PRODUCTION_URL,
     siteName: siteConfig.name,
-    // 這裡設為 relative path，Next.js 會自動用 metadataBase 補全
-    // (前提是 public/ 資料夾下要有這張圖，若無可先註解掉 images)
-    // images: [
-    //   {
-    //     url: "/og-preview.png", 
-    //     width: 1200,
-    //     height: 630,
-    //     alt: siteConfig.name,
-    //   },
-    // ],
+    images: [
+      {
+        // ✅ 修正點：移除開頭的 "/"，變成相對路徑
+        // Next.js 會自動將其解析為: ${metadataBase}/og-preview.png
+        // 即: https://.../your-repo-name/og-preview.png
+        url: "og-preview.png", 
+        width: 1200,
+        height: 630,
+        alt: siteConfig.name,
+      },
+    ],
   },
 };
 
