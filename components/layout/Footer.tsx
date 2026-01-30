@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { siteConfig } from "@/lib/content";
+import { copy } from "@/lib/copy";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -13,13 +14,13 @@ export default function Footer() {
             <p className="text-gray-500 text-sm mt-1">{siteConfig.description}</p>
           </div>
           <div className="flex flex-wrap gap-6 text-sm text-gray-400">
-             <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
-             <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
-             <Link href="/security" className="hover:text-white transition-colors">Security & NDA</Link>
+             <Link href="/privacy" className="hover:text-white transition-colors">{copy.footer.privacy}</Link>
+             <Link href="/terms" className="hover:text-white transition-colors">{copy.footer.terms}</Link>
+             <Link href="/security" className="hover:text-white transition-colors">{copy.footer.security}</Link>
           </div>
         </div>
         <div className="mt-12 border-t border-white/5 pt-8 text-center md:text-left text-xs text-gray-600">
-          © {currentYear} {siteConfig.name}. All rights reserved.
+          © {currentYear} {siteConfig.name}. {copy.footer.rights}
         </div>
       </div>
     </footer>
