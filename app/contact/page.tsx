@@ -10,16 +10,11 @@ import { FadeIn } from "@/components/ui/FadeIn";
 import { team } from "@/lib/content";
 import { copy } from "@/lib/copy";
 
-// [Updated] 使用 superRefine 實現智慧驗證邏輯
 const formSchema = z.object({
   category: z.string().min(1, copy.contact.form.validation.category),
   goal: z.string().min(1, copy.contact.form.validation.goal),
   timeline: z.string().min(1, copy.contact.form.validation.timeline),
   budget: z.string().min(1, copy.contact.form.validation.budget),
-  
-  // 智慧判斷：
-  // 1. 如果輸入包含 "@"，則必須通過 Email 格式檢查
-  // 2. 如果不含 "@"，則視為 Telegram/其他，僅檢查最小長度
   contact: z.string().superRefine((val, ctx) => {
     const v = val.trim();
     if (v.includes("@")) {
@@ -43,7 +38,6 @@ const formSchema = z.object({
       }
     }
   }),
-  
   details: z.string().min(10, copy.contact.form.validation.detailsMin),
   specialist: z.string().optional()
 });
@@ -75,7 +69,7 @@ function ContactForm() {
     setIsSubmitting(true);
     setSubmitError(null);
     try {
-      // 確保這裡是你的 Formspree URL
+      // 記得確認這裡是你的 Formspree URL
       const response = await fetch("https://formspree.io/f/xwvbwevn", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -112,12 +106,12 @@ function ContactForm() {
       <div className="grid md:grid-cols-2 gap-6">
         <div className="space-y-2">
           <label className="text-xs font-mono text-gray-500 uppercase">{copy.contact.form.category}</label>
+          {/* [Phase 1: Fixed] 使用 copy.ts 渲染選項 */}
           <select {...register("category")} className="w-full h-12 rounded-md border border-white/10 bg-black/20 px-3 text-sm text-white focus:border-violet-500 focus:outline-none">
             <option value="">Select...</option>
-            <option value="Web">Web Dev</option>
-            <option value="Design">Design</option>
-            <option value="Copy">Copy & Content</option>
-            <option value="Mixed">Mixed / Ops</option>
+            {copy.contact.form.options.category.map((o) => (
+              <option key={o.value} value={o.value}>{o.label}</option>
+            ))}
           </select>
           {errors.category && <span className="text-red-500 text-xs">{errors.category.message}</span>}
         </div>
@@ -132,22 +126,22 @@ function ContactForm() {
       <div className="grid md:grid-cols-2 gap-6">
           <div className="space-y-2">
           <label className="text-xs font-mono text-gray-500 uppercase">{copy.contact.form.timeline}</label>
+          {/* [Phase 1: Fixed] 使用 copy.ts 渲染選項 */}
           <select {...register("timeline")} className="w-full h-12 rounded-md border border-white/10 bg-black/20 px-3 text-sm text-white focus:border-violet-500 focus:outline-none">
             <option value="">Select...</option>
-            <option value="ASAP">ASAP (Rush)</option>
-            <option value="1-2 weeks">1-2 Weeks</option>
-            <option value="1 month">1 Month</option>
-            <option value="Flexible">Flexible</option>
+            {copy.contact.form.options.timeline.map((o) => (
+              <option key={o.value} value={o.value}>{o.label}</option>
+            ))}
           </select>
         </div>
         <div className="space-y-2">
           <label className="text-xs font-mono text-gray-500 uppercase">{copy.contact.form.budget}</label>
+          {/* [Phase 1: Fixed] 使用 copy.ts 渲染選項 */}
           <select {...register("budget")} className="w-full h-12 rounded-md border border-white/10 bg-black/20 px-3 text-sm text-white focus:border-violet-500 focus:outline-none">
             <option value="">Select...</option>
-            <option value="<2k">Under $2k</option>
-            <option value="2k-5k">$2k - $5k</option>
-            <option value="5k-10k">$5k - $10k</option>
-            <option value="10k+">$10k+</option>
+            {copy.contact.form.options.budget.map((o) => (
+              <option key={o.value} value={o.value}>{o.label}</option>
+            ))}
           </select>
         </div>
       </div>
