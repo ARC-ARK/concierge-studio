@@ -1,4 +1,5 @@
 import { team } from "@/lib/content";
+import { copy } from "@/lib/copy";
 import { Card, Badge, Button } from "@/components/ui/Primitives";
 import { FadeIn } from "@/components/ui/FadeIn";
 import Link from "next/link";
@@ -8,9 +9,9 @@ export default function TeamPage() {
   return (
     <div className="container mx-auto px-6 py-20">
       <FadeIn>
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">Gold Team</h1>
+        <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">{copy.teamPage.title}</h1>
         <p className="text-xl text-gray-400 max-w-2xl mb-16">
-          Senior talent only. We deploy small, high-impact squads to solve your digital problems.
+          {copy.teamPage.sub}
         </p>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -38,7 +39,7 @@ export default function TeamPage() {
                 </div>
 
                 <Link href={`/contact?specialist=${member.name}`}>
-                  <Button variant="secondary" className="w-full text-xs h-10">Request {member.name}</Button>
+                  <Button variant="secondary" className="w-full text-xs h-10">{copy.teamPage.requestBtnPrefix} {member.name}</Button>
                 </Link>
              </Card>
            ))}
