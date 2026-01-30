@@ -1,10 +1,11 @@
 import { FadeIn } from "@/components/ui/FadeIn";
+import { copy } from "@/lib/copy";
 
 export default function PrivacyPage() {
   return (
     <div className="container mx-auto px-6 py-20 max-w-4xl">
       <FadeIn>
-        <h1 className="text-3xl font-bold text-white mb-8">Privacy Policy</h1>
+        <h1 className="text-3xl font-bold text-white mb-8">{copy.policies.privacyTitle}</h1>
         <div className="prose prose-invert text-gray-400">
           <p>Last updated: January 2026</p>
           <p>At Concierge Studio, we take privacy seriously. We collect minimal data necessary to facilitate our services.</p>
