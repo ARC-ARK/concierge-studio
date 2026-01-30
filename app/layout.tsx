@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 // ⚠️ TODO: 請務必修改這裡！
 // 格式: https://<你的GitHub帳號>.github.io/<Repo名稱>
 // 例如: https://johndoe.github.io/concierge-studio
-const PRODUCTION_URL = "https://your-username.github.io/concierge-studio";
+const PRODUCTION_URL = "https://arc-ark.github.io/concierge-studio/";
 
 export const metadata: Metadata = {
   title: {
