@@ -2,6 +2,7 @@ import { FadeIn } from "@/components/ui/FadeIn";
 import { Button } from "@/components/ui/Primitives";
 import Link from "next/link";
 import { ShieldCheck } from "lucide-react";
+import { copy } from "@/lib/copy";
 
 export default function SecurityPage() {
   return (
@@ -9,7 +10,7 @@ export default function SecurityPage() {
       <FadeIn>
         <div className="flex items-center gap-4 mb-8">
            <ShieldCheck className="w-12 h-12 text-cyan-400" />
-           <h1 className="text-3xl font-bold text-white">Security & NDA</h1>
+           <h1 className="text-3xl font-bold text-white">{copy.policies.securityTitle}</h1>
         </div>
         
         <div className="prose prose-invert prose-lg text-gray-400 mb-12">
@@ -23,10 +24,10 @@ export default function SecurityPage() {
         </div>
 
         <div className="bg-white/5 border border-white/10 rounded-xl p-8">
-           <h3 className="text-xl font-bold text-white mb-4">Need an NDA signed first?</h3>
-           <p className="text-gray-400 mb-6">Send us your document or request ours. We typically turn these around in 2 hours.</p>
+           <h3 className="text-xl font-bold text-white mb-4">{copy.policies.securityCta.title}</h3>
+           <p className="text-gray-400 mb-6">{copy.policies.securityCta.sub}</p>
            <Link href="/contact">
-              <Button>Request NDA via Contact</Button>
+              <Button>{copy.policies.securityCta.btn}</Button>
            </Link>
         </div>
       </FadeIn>
