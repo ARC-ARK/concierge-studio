@@ -3,7 +3,7 @@
 export const copy = {
   common: {
     startRequest: "開始委託",
-    bookCall: "預約通話",
+    bookCall: "直接溝通",
     viewAll: "查看全部",
     readCaseStudy: "查看案例",
     featuredCase: "精選案例",
@@ -113,6 +113,7 @@ export const copy = {
       sub: "加入群組，直接丟需求給我，我會回你範圍與交期。",
       btnJoin: "加入群組開始溝通",
       groupHref: "https://t.me/your_group_link",
+      comingSoon: "連結準備中…",
     },
   },
   servicesPage: {
