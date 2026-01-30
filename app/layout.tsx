@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 // ⚠️ PRODUCTION_URL 設定
 // 請將此處改為你實際的 GitHub Pages 網址 (務必包含最後的斜線)
 // 例如: https://arc-ark.github.io/concierge-studio/
-const PRODUCTION_URL = "https://your-username.github.io/your-repo-name/";
+const PRODUCTION_URL = "https://arc-ark.github.io/concierge-studio/";
 
 export const metadata: Metadata = {
   title: {
