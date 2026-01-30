@@ -10,14 +10,40 @@ import { FadeIn } from "@/components/ui/FadeIn";
 import { team } from "@/lib/content";
 import { copy } from "@/lib/copy";
 
-// [Updated] 使用集中管理的文案
+// [Updated] 使用 superRefine 實現智慧驗證邏輯
 const formSchema = z.object({
   category: z.string().min(1, copy.contact.form.validation.category),
   goal: z.string().min(1, copy.contact.form.validation.goal),
   timeline: z.string().min(1, copy.contact.form.validation.timeline),
   budget: z.string().min(1, copy.contact.form.validation.budget),
-  // 複合驗證：先檢查是否為 Email，若不是則檢查長度
-  contact: z.string().email(copy.contact.form.validation.emailInvalid).or(z.string().min(2, copy.contact.form.validation.contactRequired)),
+  
+  // 智慧判斷：
+  // 1. 如果輸入包含 "@"，則必須通過 Email 格式檢查
+  // 2. 如果不含 "@"，則視為 Telegram/其他，僅檢查最小長度
+  contact: z.string().superRefine((val, ctx) => {
+    const v = val.trim();
+    if (v.includes("@")) {
+      const emailCheck = z.string().email();
+      const result = emailCheck.safeParse(v);
+      if (!result.success) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: copy.contact.form.validation.emailInvalid,
+        });
+      }
+    } else {
+      if (v.length < 2) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.too_small,
+          minimum: 2,
+          type: "string",
+          inclusive: true,
+          message: copy.contact.form.validation.contactRequired,
+        });
+      }
+    }
+  }),
+  
   details: z.string().min(10, copy.contact.form.validation.detailsMin),
   specialist: z.string().optional()
 });
@@ -25,9 +51,6 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 function ContactForm() {
-  // ... (中間邏輯保持不變，省略以節省篇幅) ...
-  // 這裡的內容與上一個版本相同，只需要替換最上面的 formSchema 定義即可。
-  // 為了確保檔案完整性，我還是列出完整的 ContactForm
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -52,7 +75,7 @@ function ContactForm() {
     setIsSubmitting(true);
     setSubmitError(null);
     try {
-      // 記得確認這裡是你自己的 Formspree URL
+      // 確保這裡是你的 Formspree URL
       const response = await fetch("https://formspree.io/f/xwvbwevn", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
