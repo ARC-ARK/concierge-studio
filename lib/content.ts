@@ -160,7 +160,7 @@ export type ContentBlock =
   | { type: "quote"; text: string }
   | { type: "ul"; items: string[] };
 
-// [Phase 2: Refactor] Structured Insights Data
+// [Phase 2: Refactor] Structured Insights Data with Strict Typing
 export const insights = [
   {
     slug: "async-delivery",
@@ -168,7 +168,6 @@ export const insights = [
     summary: "Why async workflows ship faster with fewer meetings.",
     date: "Jan 2026",
     tags: ["ops", "delivery"],
-    // 新增結構化內容區塊
     blocks: [
       { type: "p", text: "This is a placeholder for the full article content. In a real implementation, this would be managed via a CMS-lite structure in lib/content.ts." },
       { type: "h3", text: "Why this matters now" },
@@ -176,7 +175,7 @@ export const insights = [
       { type: "quote", text: `"The best code is the code you don't write. The best meeting is the one you don't have."` },
       { type: "h3", text: "The Execution Strategy" },
       { type: "ul", items: ["Scope ruthlessly.", "Deliver early drafts.", "Iterate based on data, not opinions."] },
-    ] as ContentBlock[],
+    ],
   },
   {
     slug: "design-systems-2026",
@@ -188,16 +187,15 @@ export const insights = [
        { type: "p", text: "Fluid design systems are the future. Instead of rigid components, we use composable tokens." },
        { type: "h3", text: "Token-based approach" },
        { type: "ul", items: ["Semantic colors", "Responsive scales", "Component slots"] },
-    ] as ContentBlock[],
+    ],
   },
-  // 其他文章先用簡單的 p block 填充，避免型別錯誤
   {
     slug: "copy-that-converts",
     title: "Stop Writing Boring Copy",
     date: "Dec 15, 2025",
     summary: "Three rules to make your B2B landing page sound like a human wrote it.",
     tags: ["Copy", "Growth"],
-    blocks: [{ type: "p", text: "Summary: Three rules to make your B2B landing page sound like a human wrote it." }] as ContentBlock[],
+    blocks: [{ type: "p", text: "Summary: Three rules to make your B2B landing page sound like a human wrote it." }],
   },
   {
     slug: "nextjs-optimization",
@@ -205,7 +203,7 @@ export const insights = [
     date: "Jan 05, 2026",
     summary: "Practical tips for reducing TBT and LCP on heavy marketing sites.",
     tags: ["Tech", "Execution"],
-    blocks: [{ type: "p", text: "Summary: Practical tips for reducing TBT and LCP on heavy marketing sites." }] as ContentBlock[],
+    blocks: [{ type: "p", text: "Summary: Practical tips for reducing TBT and LCP on heavy marketing sites." }],
   },
   {
     slug: "remote-culture",
@@ -213,7 +211,7 @@ export const insights = [
     date: "Jan 20, 2026",
     summary: "How to recruit senior talent who don't need management.",
     tags: ["Strategy", "Team"],
-    blocks: [{ type: "p", text: "Summary: How to recruit senior talent who don't need management." }] as ContentBlock[],
+    blocks: [{ type: "p", text: "Summary: How to recruit senior talent who don't need management." }],
   },
   {
     slug: "automation-basics",
@@ -221,6 +219,13 @@ export const insights = [
     date: "Feb 02, 2026",
     summary: "Using Zapier and Webhooks to eliminate manual admin work.",
     tags: ["Operations", "Tech"],
-    blocks: [{ type: "p", text: "Summary: Using Zapier and Webhooks to eliminate manual admin work." }] as ContentBlock[],
+    blocks: [{ type: "p", text: "Summary: Using Zapier and Webhooks to eliminate manual admin work." }],
   },
-] as const;
+] satisfies ReadonlyArray<{
+  slug: string;
+  title: string;
+  summary: string;
+  date: string;
+  tags: readonly string[];
+  blocks: readonly ContentBlock[];
+}>;
