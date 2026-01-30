@@ -58,6 +58,27 @@ export const copy = {
       sendingBtn: "Sending...",
       ndaPrefix: "NDA available upon request.",
       confidential: "100% Confidential.",
+      // [Phase 1: New] Centralized Form Options
+      options: {
+        category: [
+          { value: "Web", label: "Web Dev" },
+          { value: "Design", label: "Design" },
+          { value: "Copy", label: "Copy & Content" },
+          { value: "Mixed", label: "Mixed / Ops" },
+        ],
+        timeline: [
+          { value: "ASAP", label: "ASAP (Rush)" },
+          { value: "1-2 weeks", label: "1-2 Weeks" },
+          { value: "1 month", label: "1 Month" },
+          { value: "Flexible", label: "Flexible" },
+        ],
+        budget: [
+          { value: "<2k", label: "Under $2k" },
+          { value: "2k-5k", label: "$2k - $5k" },
+          { value: "5k-10k", label: "$5k - $10k" },
+          { value: "10k+", label: "$10k+" },
+        ],
+      },
       validation: {
         category: "Please select a category",
         goal: "Please define a goal",
