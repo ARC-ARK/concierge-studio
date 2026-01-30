@@ -58,6 +58,18 @@ export const copy = {
       sendingBtn: "Sending...",
       ndaPrefix: "NDA available upon request.",
       confidential: "100% Confidential.",
+      // UI 元素文字
+      ui: {
+        select: "Select...",
+        noPreference: "No preference",
+      },
+      // 輸入框提示文字
+      placeholders: {
+        goal: "e.g. Leads, Brand, Sales...",
+        details: "Describe the challenge, audience, and constraints...",
+        contact: "john@company.com",
+      },
+      // 表單選項
       options: {
         category: [
           { value: "Web", label: "Web Dev" },
@@ -78,6 +90,7 @@ export const copy = {
           { value: "10k+", label: "$10k+" },
         ],
       },
+      // 驗證訊息
       validation: {
         category: "Please select a category",
         goal: "Please define a goal",
@@ -87,6 +100,7 @@ export const copy = {
         contactRequired: "Contact method required (min 2 chars)",
         detailsMin: "Please provide more details (at least 10 chars)",
       },
+      // 系統錯誤訊息
       errors: {
         generic: "Failed to send request. Please try again later.",
         network: "Network error. Please check your connection."
