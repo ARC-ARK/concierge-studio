@@ -1,4 +1,5 @@
 import { services } from "@/lib/content";
+import { copy } from "@/lib/copy";
 import { Card, Badge } from "@/components/ui/Primitives";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
@@ -8,9 +9,9 @@ export default function HomeServices() {
     <section className="py-20 bg-black/20">
       <div className="container mx-auto px-6">
         <div className="flex justify-between items-end mb-12">
-           <h2 className="text-3xl font-bold text-white">Our Services</h2>
+           <h2 className="text-3xl font-bold text-white">{copy.home.servicesTitle}</h2>
            <Link href="/services" className="text-sm text-violet-400 hover:text-violet-300 flex items-center gap-1">
-             View all <ArrowUpRight className="w-4 h-4"/>
+             {copy.common.viewAll} <ArrowUpRight className="w-4 h-4"/>
            </Link>
         </div>
         
@@ -23,7 +24,7 @@ export default function HomeServices() {
               <h3 className="text-xl font-bold text-white mb-2">{s.title}</h3>
               <p className="text-gray-400 text-sm mb-6 flex-grow">{s.desc}</p>
               <div className="pt-4 border-t border-white/5">
-                <p className="text-xs text-gray-500 font-mono">DELIVERABLES: {s.deliverables}</p>
+                <p className="text-xs text-gray-500 font-mono">{copy.servicesPage.youGet} {s.deliverables}</p>
               </div>
             </Card>
           ))}
