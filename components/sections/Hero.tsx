@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/Primitives";
 import { CheckCircle2 } from "lucide-react";
+import { copy } from "@/lib/copy";
 
 export default function Hero() {
   return (
@@ -14,32 +15,32 @@ export default function Hero() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
           </span>
-          Accepting new projects for Feb 2026
+          {copy.home.hero.badge}
         </div>
 
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white mb-6">
-          Anything digital—<span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">handled.</span>
+          {copy.home.hero.titleStart}<span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">{copy.home.hero.titleEnd}</span>
         </h1>
         
         <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-          We scope fast, execute clean, and deliver with accountability—so you can move forward without friction.
+          {copy.home.hero.sub}
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
           <Link href="/contact">
             <Button className="w-full sm:w-auto text-base px-8 py-4">
-              Start a request
+              {copy.common.startRequest}
             </Button>
           </Link>
           <Link href="/contact#book">
             <Button variant="secondary" className="w-full sm:w-auto text-base px-8 py-4">
-              Book a call
+              {copy.common.bookCall}
             </Button>
           </Link>
         </div>
 
         <div className="flex flex-wrap justify-center gap-6 md:gap-12 text-sm text-gray-500 border-t border-white/5 pt-8 max-w-4xl mx-auto">
-          {["Response within 24h", "Clear scope & timeline", "NDA available", "Senior-led delivery"].map((item) => (
+          {copy.home.hero.trust.map((item) => (
             <div key={item} className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-violet-500" />
               <span>{item}</span>
