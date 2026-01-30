@@ -1,4 +1,5 @@
-import { insights } from "@/lib/content";
+// [Phase 2: Update Imports] 匯入 ContentBlock 型別
+import { insights, type ContentBlock } from "@/lib/content";
 import { copy } from "@/lib/copy";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Button, Badge } from "@/components/ui/Primitives";
@@ -6,8 +7,8 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
 
-// [NEW] 輕量級區塊渲染器
-function InsightBlocks({ blocks }: { blocks: any[] }) {
+// [Phase 2: Strict Typed Renderer]
+function InsightBlocks({ blocks }: { blocks: readonly ContentBlock[] }) {
   return (
     <div className="prose prose-invert prose-lg max-w-none">
       {blocks.map((b, i) => {
@@ -23,7 +24,7 @@ function InsightBlocks({ blocks }: { blocks: any[] }) {
           case "ul":
             return (
               <ul key={i} className="list-disc pl-5 space-y-2 text-gray-400">
-                {b.items.map((it: string) => <li key={it}>{it}</li>)}
+                {b.items.map((it) => <li key={it}>{it}</li>)}
               </ul>
             );
           case "p":
@@ -62,7 +63,7 @@ export default function InsightPost({ params }: { params: { slug: string } }) {
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">{post.title}</h1>
         <div className="text-gray-500 text-sm mb-12 border-b border-white/10 pb-8">{post.date} · {copy.insightsPage.readTimeLabel}</div>
 
-        {/* [Fixed] 使用渲染器代替硬編碼內容 */}
+        {/* [Phase 2: Fixed] 使用嚴格型別的渲染器 */}
         <InsightBlocks blocks={post.blocks} />
         
         <div className="mt-20 pt-10 border-t border-white/10">
