@@ -109,9 +109,10 @@ export const copy = {
       },
     },
     book: {
-      title: "想用說的？",
-      sub: "可預約 15 分鐘快速釐清。",
-      btnLoading: "預約系統載入中…",
+      title: "想直接聊？",
+      sub: "加入群組，直接丟需求給我，我會回你範圍與交期。",
+      btnJoin: "加入群組開始溝通",
+      groupHref: "https://t.me/your_group_link",
     },
   },
   servicesPage: {
