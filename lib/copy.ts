@@ -7,6 +7,7 @@ export const copy = {
     featuredCase: "FEATURED CASE",
     impact: "Impact",
     clientPreview: "[Client Project Preview]",
+    loadingCases: "Case studies loading...", // [New]
   },
   nav: {
     startRequestBtn: "Start Request",
@@ -57,6 +58,16 @@ export const copy = {
       sendingBtn: "Sending...",
       ndaPrefix: "NDA available upon request.",
       confidential: "100% Confidential.",
+      // [New] Validation Messages
+      validation: {
+        category: "Please select a category",
+        goal: "Please define a goal",
+        timeline: "Timeline is required",
+        budget: "Budget is required",
+        emailInvalid: "Invalid email address",
+        contactRequired: "Contact method required",
+        detailsMin: "Please provide more details (at least 10 chars)",
+      },
       errors: {
         generic: "Failed to send request. Please try again later.",
         network: "Network error. Please check your connection."
@@ -94,7 +105,7 @@ export const copy = {
     title: "Insights",
     sub: "Notes on strategy, design, and operations from the field.",
     backLink: "Back to Insights",
-    readTimeLabel: "5 min read", // Placeholder
+    readTimeLabel: "5 min read",
     ctaTitle: "Ready to implement this?",
     ctaBtn: "Talk to our strategists",
   },
@@ -109,7 +120,6 @@ export const copy = {
     },
     ctaBtn: "Start a project"
   },
-  // Policy page titles (long text kept in files for now)
   policies: {
     termsTitle: "Terms of Service",
     privacyTitle: "Privacy Policy",
