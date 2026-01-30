@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { team } from "@/lib/content";
+import { copy } from "@/lib/copy";
 import { Card, Badge, Button } from "@/components/ui/Primitives";
 
 export default function TeamTeaser() {
   return (
     <section className="py-24 bg-surface/30">
       <div className="container mx-auto px-6 text-center mb-12">
-          <h2 className="text-3xl font-bold text-white mb-4">The Gold Team</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">Meet the senior specialists who lead every delivery. No juniors, no outsourcing.</p>
+          <h2 className="text-3xl font-bold text-white mb-4">{copy.home.team.title}</h2>
+          <p className="text-gray-400 max-w-2xl mx-auto">{copy.home.team.sub}</p>
       </div>
       <div className="container mx-auto px-6 overflow-hidden">
            <div className="flex justify-center gap-6 flex-wrap">
@@ -30,7 +31,7 @@ export default function TeamTeaser() {
               ))}
            </div>
            <div className="text-center mt-10">
-              <Link href="/gold-team"><Button variant="secondary">View Full Roster</Button></Link>
+              <Link href="/gold-team"><Button variant="secondary">{copy.home.team.btn}</Button></Link>
            </div>
       </div>
     </section>
