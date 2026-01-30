@@ -1,20 +1,20 @@
 /** @type {import('next').NextConfig} */
 
-// TODO: 如果你的 repo 網址是 https://user.github.io/my-project/
-// 請將下方的 "my-project" 改成你的 repo 名稱
-const repoName = "concierge-studio"; 
+// 再次確認這裡與你的 repo 名稱完全一致（包含大小寫）
+const repoName = "concierge-studio";
 
-const isProd = process.env.NODE_ENV === 'production';
+// 修正判斷邏輯：如果在 GitHub Actions 環境下，也視為生產環境
+const isProd = process.env.NODE_ENV === "production" || process.env.GITHUB_ACTIONS === "true";
 
 const nextConfig = {
-  output: "export", // 關鍵：開啟靜態輸出
+  output: "export",
   images: {
-    unoptimized: true, // 關鍵：GitHub Pages 不支援 Next.js 的圖片優化伺服器
+    unoptimized: true,
   },
-  // 只有在生產環境 (GitHub Pages) 且有 repo 名稱時才加上路徑前綴
+  // 只有在確定是生產環境或 CI 環境時，才加上 repo 名稱前綴
   basePath: isProd ? `/${repoName}` : "",
   assetPrefix: isProd ? `/${repoName}/` : "",
-  trailingSlash: true, // 建議開啟，避免路徑結尾斜線造成的 404
+  trailingSlash: true,
 };
 
 export default nextConfig;
