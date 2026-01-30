@@ -1,5 +1,6 @@
 "use client";
 import { faqs } from "@/lib/content";
+import { copy } from "@/lib/copy";
 import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -10,7 +11,7 @@ export default function FAQ() {
   return (
     <section className="py-20">
       <div className="container mx-auto px-6 max-w-3xl">
-        <h2 className="text-3xl font-bold text-white mb-12 text-center">Common Questions</h2>
+        <h2 className="text-3xl font-bold text-white mb-12 text-center">{copy.home.faqTitle}</h2>
         <div className="space-y-4">
           {faqs.map((faq, i) => (
             <div key={i} className="border border-white/10 rounded-lg bg-surface/30 overflow-hidden">
