@@ -1,4 +1,5 @@
 import { steps } from "@/lib/content";
+import { copy } from "@/lib/copy";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Button, Card } from "@/components/ui/Primitives";
 import Link from "next/link";
@@ -7,9 +8,9 @@ export default function HowItWorksPage() {
   return (
     <div className="container mx-auto px-6 py-20">
       <FadeIn>
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">How it works</h1>
+        <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">{copy.howPage.title}</h1>
         <p className="text-xl text-gray-400 max-w-2xl mb-16">
-          Transparent, asynchronous, and designed for speed. No retainer traps.
+          {copy.howPage.sub}
         </p>
 
         <div className="space-y-8 relative">
@@ -30,23 +31,23 @@ export default function HowItWorksPage() {
         </div>
 
         <div className="mt-20 text-center p-12 rounded-2xl bg-white/5 border border-white/5">
-           <h3 className="text-2xl font-bold text-white mb-4">Pricing Models</h3>
+           <h3 className="text-2xl font-bold text-white mb-4">{copy.howPage.pricingTitle}</h3>
            <div className="grid md:grid-cols-3 gap-6 text-left mt-8">
               <div className="p-6">
-                 <div className="text-violet-400 font-bold mb-2">Fixed Project</div>
-                 <p className="text-sm text-gray-400">Clear scope, clear price. 50% upfront. Best for landing pages and decks.</p>
+                 <div className="text-violet-400 font-bold mb-2">{copy.howPage.pricing.fixed.title}</div>
+                 <p className="text-sm text-gray-400">{copy.howPage.pricing.fixed.desc}</p>
               </div>
               <div className="p-6 border-l border-white/10">
-                 <div className="text-cyan-400 font-bold mb-2">Sprint Week</div>
-                 <p className="text-sm text-gray-400">Dedicate a senior team for 5 days. Flat rate. Best for MVP builds.</p>
+                 <div className="text-cyan-400 font-bold mb-2">{copy.howPage.pricing.sprint.title}</div>
+                 <p className="text-sm text-gray-400">{copy.howPage.pricing.sprint.desc}</p>
               </div>
               <div className="p-6 border-l border-white/10">
-                 <div className="text-white font-bold mb-2">Retainer</div>
-                 <p className="text-sm text-gray-400">Reserve 20-80 hours/month. Priority queue. Best for ongoing ops.</p>
+                 <div className="text-white font-bold mb-2">{copy.howPage.pricing.retainer.title}</div>
+                 <p className="text-sm text-gray-400">{copy.howPage.pricing.retainer.desc}</p>
               </div>
            </div>
            <div className="mt-12">
-             <Link href="/contact"><Button>Start a project</Button></Link>
+             <Link href="/contact"><Button>{copy.howPage.ctaBtn}</Button></Link>
            </div>
         </div>
       </FadeIn>
