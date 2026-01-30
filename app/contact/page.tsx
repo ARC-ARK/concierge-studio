@@ -9,12 +9,16 @@ import { Button, Input, Textarea, Card } from "@/components/ui/Primitives";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { team } from "@/lib/content";
 import { copy } from "@/lib/copy";
+import Link from "next/link"; // [v1.3.2] 新增 Link
 
 const formSchema = z.object({
   category: z.string().min(1, copy.contact.form.validation.category),
   goal: z.string().min(1, copy.contact.form.validation.goal),
   timeline: z.string().min(1, copy.contact.form.validation.timeline),
   budget: z.string().min(1, copy.contact.form.validation.budget),
+  // 智慧判斷：
+  // 1. 如果輸入包含 "@"，則必須通過 Email 格式檢查
+  // 2. 如果不含 "@"，則視為 Telegram/其他，僅檢查最小長度
   contact: z.string().superRefine((val, ctx) => {
     const v = val.trim();
     if (v.includes("@")) {
@@ -69,7 +73,7 @@ function ContactForm() {
     setIsSubmitting(true);
     setSubmitError(null);
     try {
-      // 記得確認這裡是你的 Formspree URL
+      // 這是你的 Formspree URL
       const response = await fetch("https://formspree.io/f/xwvbwevn", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -106,9 +110,8 @@ function ContactForm() {
       <div className="grid md:grid-cols-2 gap-6">
         <div className="space-y-2">
           <label className="text-xs font-mono text-gray-500 uppercase">{copy.contact.form.category}</label>
-          {/* [Phase 1: Fixed] 使用 copy.ts 渲染選項 */}
           <select {...register("category")} className="w-full h-12 rounded-md border border-white/10 bg-black/20 px-3 text-sm text-white focus:border-violet-500 focus:outline-none">
-            <option value="">Select...</option>
+            <option value="">{copy.contact.form.ui.select}</option>
             {copy.contact.form.options.category.map((o) => (
               <option key={o.value} value={o.value}>{o.label}</option>
             ))}
@@ -118,7 +121,7 @@ function ContactForm() {
 
         <div className="space-y-2">
           <label className="text-xs font-mono text-gray-500 uppercase">{copy.contact.form.goal}</label>
-          <Input {...register("goal")} placeholder="e.g. Leads, Brand, Sales..." />
+          <Input {...register("goal")} placeholder={copy.contact.form.placeholders.goal} />
           {errors.goal && <span className="text-red-500 text-xs">{errors.goal.message}</span>}
         </div>
       </div>
@@ -126,9 +129,8 @@ function ContactForm() {
       <div className="grid md:grid-cols-2 gap-6">
           <div className="space-y-2">
           <label className="text-xs font-mono text-gray-500 uppercase">{copy.contact.form.timeline}</label>
-          {/* [Phase 1: Fixed] 使用 copy.ts 渲染選項 */}
           <select {...register("timeline")} className="w-full h-12 rounded-md border border-white/10 bg-black/20 px-3 text-sm text-white focus:border-violet-500 focus:outline-none">
-            <option value="">Select...</option>
+            <option value="">{copy.contact.form.ui.select}</option>
             {copy.contact.form.options.timeline.map((o) => (
               <option key={o.value} value={o.value}>{o.label}</option>
             ))}
@@ -136,9 +138,8 @@ function ContactForm() {
         </div>
         <div className="space-y-2">
           <label className="text-xs font-mono text-gray-500 uppercase">{copy.contact.form.budget}</label>
-          {/* [Phase 1: Fixed] 使用 copy.ts 渲染選項 */}
           <select {...register("budget")} className="w-full h-12 rounded-md border border-white/10 bg-black/20 px-3 text-sm text-white focus:border-violet-500 focus:outline-none">
-            <option value="">Select...</option>
+            <option value="">{copy.contact.form.ui.select}</option>
             {copy.contact.form.options.budget.map((o) => (
               <option key={o.value} value={o.value}>{o.label}</option>
             ))}
@@ -148,20 +149,20 @@ function ContactForm() {
 
       <div className="space-y-2">
         <label className="text-xs font-mono text-gray-500 uppercase">{copy.contact.form.details}</label>
-        <Textarea {...register("details")} placeholder="Describe the challenge, audience, and constraints..." rows={5} />
+        <Textarea {...register("details")} placeholder={copy.contact.form.placeholders.details} rows={5} />
         {errors.details && <span className="text-red-500 text-xs">{errors.details.message}</span>}
       </div>
 
       <div className="space-y-2">
           <label className="text-xs font-mono text-gray-500 uppercase">{copy.contact.form.contact}</label>
-          <Input {...register("contact")} placeholder="john@company.com" />
+          <Input {...register("contact")} placeholder={copy.contact.form.placeholders.contact} />
           {errors.contact && <span className="text-red-500 text-xs">{errors.contact.message}</span>}
       </div>
       
       <div className="space-y-2">
         <label className="text-xs font-mono text-gray-500 uppercase">{copy.contact.form.specialist}</label>
         <select {...register("specialist")} className="w-full h-12 rounded-md border border-white/10 bg-black/20 px-3 text-sm text-white focus:border-violet-500 focus:outline-none">
-          <option value="">No preference</option>
+          <option value="">{copy.contact.form.ui.noPreference}</option>
           {team.map(t => <option key={t.name} value={t.name}>{t.name} - {t.role}</option>)}
         </select>
       </div>
@@ -197,10 +198,23 @@ export default function ContactPage() {
           <ContactForm />
         </Suspense>
 
+        {/* [v1.3.2 UPDATE] 底部按鈕改為外部社群連結 */}
         <div id="book" className="mt-20 pt-10 border-t border-white/10 text-center">
             <h3 className="text-white font-bold mb-2">{copy.contact.book.title}</h3>
             <p className="text-gray-500 text-sm mb-4">{copy.contact.book.sub}</p>
-            <Button variant="secondary" disabled>{copy.contact.book.btnLoading}</Button>
+            
+            {copy.contact.book.groupHref ? (
+              <Link 
+                href={copy.contact.book.groupHref} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-block"
+              >
+                <Button variant="secondary">{copy.contact.book.btnJoin}</Button>
+              </Link>
+            ) : (
+              <Button variant="secondary" disabled>Coming Soon</Button>
+            )}
         </div>
       </FadeIn>
     </div>
